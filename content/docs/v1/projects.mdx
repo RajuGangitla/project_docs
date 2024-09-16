@@ -1,0 +1,379 @@
+---
+title: Projects
+description: Project Management API
+---
+
+# Project Management API
+
+The Project Management API allows users to manage projects through various actions, including creating, updating, listing, and deleting projects. These endpoints provide a flexible way to manage project data, assign team members, set project statuses, and more. This API is essential for teams looking to efficiently track and manage their ongoing and completed projects.
+
+## Key Features:
+
+- **Create Projects:** Allows users to create new projects with essential details such as title, description, tags, and assignees.
+- **Update Projects:** Enables modification of existing project data, including changing titles, adding team members, and updating statuses.
+- **List Projects:** Provides paginated access to a list of all projects or projects assigned to specific users, with various filters.
+- **Delete Projects:** Allows users to remove projects, with options for deleting related data.
+
+You can navigate the different sections to learn more about how each endpoint works.
+
+---
+
+## Create Project
+
+To create a new project, use the following endpoint:
+
+### Endpoint
+
+import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
+import { TypeTable } from "fumadocs-ui/components/type-table";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+```http
+POST /api/project-mgt/create
+```
+
+<Accordions>
+  <Accordion title="Body Parameters">
+    <TypeTable
+      type={{
+        description: {
+          description: "A brief explanation of the project.",
+          type: "string",
+          optional: true,
+        },
+        status: {
+          description: "The current status of the project.",
+          type: "string",
+          optional: true,
+        },
+        assignees: {
+          description: "List of users assigned to the project.",
+          type: "string[]", // assuming this is an array of strings representing user names or IDs
+          optional: true,
+        },
+        tags: {
+          description: "Tags associated with the project.",
+          type: "string[]",
+          optional: true,
+        },
+        title: {
+          description: "The title of the project.",
+          type: "string",
+          optional: false,
+        },
+        startTime: {
+          description: "The start time of the project.",
+          type: "Date",
+          optional: true,
+        },
+        endTime: {
+          description: "The end time of the project.",
+          type: "Date",
+          optional: true,
+        },
+        billStatus: {
+          description: "The billing status for the project.",
+          type: "string",
+          optional: true,
+        },
+        currency: {
+          description: "The currency used for the project budget.",
+          type: "string",
+          optional: true,
+        },
+        customer: {
+          description: "The customer associated with the project.",
+          type: "string",
+          optional: true,
+        },
+        coordinator: {
+          description: "The coordinator managing the project.",
+          type: "string",
+          optional: true,
+        },
+        hourlyCost: {
+          description: "The hourly cost associated with the project.",
+          type: "number",
+          optional: true,
+        },
+      }}
+    />
+  </Accordion>
+</Accordions>
+
+<Tabs items={["201 Success", "401 Not Authenticated"]}>
+  <Tab value="201 Success">
+    ```json
+    {
+      "status": 201,
+      "message": "Project created successfully",
+      "data": {
+        "id": "project12345",
+        "title": "New Project",
+        "description": "This is a new project",
+        "status": "active",
+        "assignees": ["user123", "user456"],
+        "tags": ["tag1", "tag2"],
+        "startTime": "2023-09-10T00:00:00Z",
+        "endTime": "2023-12-10T00:00:00Z",
+        "billStatus": "unpaid",
+        "currency": "USD",
+        "customer": "Customer123",
+        "coordinator": "Coordinator123",
+        "hourlyCost": 100
+      }
+    }
+    ```
+  </Tab>
+  <Tab value="401 Not Authenticated">
+    ```json
+    {
+      "status": 401,
+      "message": "Unauthorized."
+    }
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## List Projects
+
+To get list of projects, use the following endpoint:
+
+### Endpoint
+
+```http
+GET /api/project-mgt/pagination/projects
+```
+
+<Accordions>
+  <Accordion title="Query Parameters">
+    <TypeTable
+      type={{
+        status: {
+          description: "Filter projects by status.",
+          type: "string",
+          optional: true,
+        },
+        sortBy: {
+          description: "Field by which to sort the results.",
+          type: "string",
+          optional: true,
+        },
+        sortOrder: {
+          description:
+            "Order to sort the results. Use 1 for ascending and -1 for descending.",
+          type: "number",
+          optional: true,
+        },
+        search: {
+          description: "Search term to filter projects.",
+          type: "string",
+          optional: true,
+        },
+        page: {
+          description: "Page number for pagination.",
+          type: "number",
+          optional: false,
+        },
+        numberOfRow: {
+          description: "Number of rows per page.",
+          type: "number",
+          optional: false,
+        },
+        createdAtEnd: {
+          description: "End date for filtering projects by creation date.",
+          type: "string",
+          optional: true,
+        },
+        createdAtStart: {
+          description: "Start date for filtering projects by creation date.",
+          type: "string",
+          optional: true,
+        },
+        employeeId: {
+          description: "Filter projects by employee ID.",
+          type: "string",
+          optional: true,
+        },
+        customerId: {
+          description: "Filter projects by customer ID.",
+          type: "string",
+          optional: true,
+        },
+      }}
+    />
+  </Accordion>
+</Accordions>
+
+<Tabs items={["200 Success", "401 Not Authenticated"]}>
+  <Tab value="200 Success">
+    ```json
+    {
+      "status": 200,
+      "message": "Projects retrieved successfully",
+      "data": [
+        {
+          "id": "project123",
+          "title": "Project A",
+          "description": "This is Project A",
+          "status": "active"
+        },
+        {
+          "id": "project456",
+          "title": "Project B",
+          "description": "This is Project B",
+          "status": "completed"
+        }
+      ]
+    }
+    ```
+  </Tab>
+  <Tab value="401 Not Authenticated">
+    ```json
+    {
+      "status": 401,
+      "message": "Unauthorized. Please log in."
+    }
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Update Project
+
+To update an existing project, use the following endpoint:
+
+### Endpoint
+
+```http
+PUT /api/project-mgt/project/:projectId
+```
+
+<Accordions>
+  <Accordion title="Body Parameters">
+    <TypeTable
+      type={{
+        description: {
+          description: "A brief explanation of the project.",
+          type: "string",
+          optional: true,
+        },
+        status: {
+          description: "The current status of the project.",
+          type: "string",
+          optional: true,
+        },
+        assignees: {
+          description: "List of users assigned to the project.",
+          type: "string[]",
+          optional: true,
+        },
+        tags: {
+          description: "Tags associated with the project.",
+          type: "string[]",
+          optional: true,
+        },
+        title: {
+          description: "The title of the project.",
+          type: "string",
+          optional: false,
+        },
+        startTime: {
+          description: "The start time of the project.",
+          type: "Date",
+          optional: true,
+        },
+        endTime: {
+          description: "The end time of the project.",
+          type: "Date",
+          optional: true,
+        },
+      }}
+    />
+  </Accordion>
+</Accordions>
+
+<Tabs items={["200 Success", "401 Not Authenticated"]}>
+  <Tab value="200 Success">
+    ```json
+      {
+        "status": 200,
+        "message": "Project updated successfully",
+        "data": [
+          {
+            "id": "project123", 
+            "title": "Updated Project Title",
+            "description": "Updated description of the project",
+            "status": "active",
+            "assignees": ["user123"], 
+            "tags": ["updatedTag"],
+            "startTime": "2023-09-10T00:00:00Z",
+            "endTime": "2023-12-10T00:00:00Z" }
+      ]
+    }
+    ```
+  </Tab>
+  <Tab value="401 Not Authenticated">
+    ```json
+    {
+      "status": 401,
+      "message": "Unauthorized. Please log in."
+    }
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Delete Project
+
+To delete an existing project, use the following endpoint:
+
+### Endpoint
+
+```http
+POST /api/project-mgt/deleteProject/:projectId
+```
+
+<Accordions>
+  <Accordion title="Body Parameters">
+    <TypeTable
+      type={{
+        deleteProjectData: {
+          description:
+            "Flag indicating whether to delete the project data (optional)",
+          type: "boolean",
+          optional: true,
+        },
+        deleteAllProjectData: {
+          description:
+            "Flag indicating whether to delete all related project data (optional).",
+          type: "boolean",
+          optional: true,
+        },
+      }}
+    />
+  </Accordion>
+</Accordions>
+
+<Tabs items={["200 Success", "401 Not Authenticated"]}>
+  <Tab value="200 Success">
+    ```json
+    {
+      "status": 200, 
+      "message": "Project deleted successfully"
+    }
+    ```
+  </Tab>
+  <Tab value="401 Not Authenticated">
+    ```json
+    {
+      "status": 401,
+      "message": "Unauthorized. Please log in."
+    }
+    ```
+  </Tab>
+</Tabs>

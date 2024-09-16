@@ -1,0 +1,19 @@
+{
+  "title": "mdx",
+  "root": true,
+  "pages": [
+    "---Guide---",
+    "index",
+    "...",
+    "---API Reference---",
+    "authentication",
+    "v1",
+    "mdx",
+    "plugin",
+    "---Features---",
+    "last-modified",
+    "image",
+    "manifest",
+    "transform"
+  ]
+}

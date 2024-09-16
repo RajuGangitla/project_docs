@@ -1,0 +1,79 @@
+---
+title: Create
+description: Documentation for Project Create
+---
+
+## Endpoint
+
+```http
+POST /api/project-mgt/create
+```
+
+## Types
+
+import { TypeTable } from "fumadocs-ui/components/type-table";
+
+<TypeTable
+  type={{
+    description: {
+      description: "A brief explanation of the project.",
+      type: "string",
+      optional: true,
+    },
+    status: {
+      description: "The current status of the project.",
+      type: "string",
+      optional: true,
+    },
+    assignees: {
+      description: "List of users assigned to the project.",
+      type: "string[]", // assuming this is an array of strings representing user names or IDs
+      optional: true,
+    },
+    tags: {
+      description: "Tags associated with the project.",
+      type: "string[]",
+      optional: true,
+    },
+    title: {
+      description: "The title of the project.",
+      type: "string",
+      optional: false,
+    },
+    startTime: {
+      description: "The start time of the project.",
+      type: "Date",
+      optional: true,
+    },
+    endTime: {
+      description: "The end time of the project.",
+      type: "Date",
+      optional: true,
+    },
+    billStatus: {
+      description: "The billing status for the project.",
+      type: "string",
+      optional: true,
+    },
+    currency: {
+      description: "The currency used for the project budget.",
+      type: "string",
+      optional: true,
+    },
+    customer: {
+      description: "The customer associated with the project.",
+      type: "string",
+      optional: true,
+    },
+    coordinator: {
+      description: "The coordinator managing the project.",
+      type: "string",
+      optional: true,
+    },
+    hourlyCost: {
+      description: "The hourly cost associated with the project.",
+      type: "number",
+      optional: true,
+    },
+  }}
+/>

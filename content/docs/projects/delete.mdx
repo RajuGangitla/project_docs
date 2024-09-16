@@ -1,0 +1,31 @@
+---
+title: Delete
+description: Documentation for Project Deletion
+---
+
+## Endpoint
+
+```http
+POST /api/project-mgt/deleteProject/:projectId
+```
+
+## Types
+
+import { TypeTable } from "fumadocs-ui/components/type-table";
+
+<TypeTable
+  type={{
+    deleteProjectData: {
+      description:
+        "Flag indicating whether to delete the project data (optional)",
+      type: "boolean",
+      optional: true,
+    },
+    deleteAllProjectData: {
+      description:
+        "Flag indicating whether to delete all related project data (optional).",
+      type: "boolean",
+      optional: true,
+    },
+  }}
+/>

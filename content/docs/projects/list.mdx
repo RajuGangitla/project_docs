@@ -1,0 +1,70 @@
+---
+title: List Projects
+description: Documentation for Paginated Project Retrieval
+---
+
+## Endpoint
+
+```http
+GET /api/project-mgt/pagination/projects
+```
+
+## Types
+
+import { TypeTable } from "fumadocs-ui/components/type-table";
+
+<TypeTable
+  type={{
+    status: {
+      description: "Filter projects by status.",
+      type: "string",
+      optional: true,
+    },
+    sortBy: {
+      description: "Field by which to sort the results.",
+      type: "string",
+      optional: true,
+    },
+    sortOrder: {
+      description:
+        "Order to sort the results. Use 1 for ascending and -1 for descending.",
+      type: "number",
+      optional: true,
+    },
+    search: {
+      description: "Search term to filter projects.",
+      type: "string",
+      optional: true,
+    },
+    page: {
+      description: "Page number for pagination.",
+      type: "number",
+      optional: false,
+    },
+    numberOfRow: {
+      description: "Number of rows per page.",
+      type: "number",
+      optional: false,
+    },
+    createdAtEnd: {
+      description: "End date for filtering projects by creation date.",
+      type: "string",
+      optional: true,
+    },
+    createdAtStart: {
+      description: "Start date for filtering projects by creation date.",
+      type: "string",
+      optional: true,
+    },
+    employeeId: {
+      description: "Filter projects by employee ID.",
+      type: "string",
+      optional: true,
+    },
+    customerId: {
+      description: "Filter projects by customer ID.",
+      type: "string",
+      optional: true,
+    },
+  }}
+/>
