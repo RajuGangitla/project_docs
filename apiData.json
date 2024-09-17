@@ -1,0 +1,171 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "FastAPI", "version": "0.1.0" },
+  "paths": {
+    "/agent": {
+      "post": {
+        "summary": "Api Agent",
+        "operationId": "api_agent_agent_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AgentInputSchema" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upload_document": {
+      "post": {
+        "summary": "Upload Url Content",
+        "operationId": "upload_url_content_upload_document_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UploadDocumentSchema" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AgentInputSchema": {
+        "properties": {
+          "query": { "type": "string", "title": "Query" },
+          "user_id": { "type": "string", "title": "User Id" },
+          "channel_id": { "type": "string", "title": "Channel Id" },
+          "channel_type": { "type": "string", "title": "Channel Type" },
+          "channel_privacy": { "type": "string", "title": "Channel Privacy" },
+          "msg_location": { "type": "string", "title": "Msg Location" },
+          "project_id": { "type": "string", "title": "Project Id" },
+          "message_id": { "type": "string", "title": "Message Id" },
+          "llm_type": { "type": "string", "title": "Llm Type" },
+          "token": { "type": "string", "title": "Token" },
+          "doc_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Doc Id",
+            "default": ""
+          },
+          "channel_activity": {
+            "anyOf": [{ "items": {}, "type": "array" }, { "type": "null" }],
+            "title": "Channel Activity"
+          },
+          "response_id": { "type": "string", "title": "Response Id" }
+        },
+        "type": "object",
+        "required": [
+          "query",
+          "user_id",
+          "channel_id",
+          "channel_type",
+          "channel_privacy",
+          "msg_location",
+          "project_id",
+          "message_id",
+          "llm_type",
+          "token",
+          "response_id"
+        ],
+        "title": "AgentInputSchema"
+      },
+      "AnotherClass": {
+        "properties": {
+          "message_id_doc": {
+            "anyOf": [{ "items": {}, "type": "array" }, { "type": "null" }],
+            "title": "Message Id Doc"
+          },
+          "url": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "title": "AnotherClass"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "UploadDocumentSchema": {
+        "properties": {
+          "url": { "type": "string", "title": "Url" },
+          "user_id": { "type": "string", "title": "User Id" },
+          "channel_id": { "type": "string", "title": "Channel Id" },
+          "channel_type": { "type": "string", "title": "Channel Type" },
+          "channel_privacy": { "type": "string", "title": "Channel Privacy" },
+          "msg_location": { "type": "string", "title": "Msg Location" },
+          "project_id": { "type": "string", "title": "Project Id" },
+          "message_id": { "type": "string", "title": "Message Id" },
+          "another_instance": {
+            "allOf": [{ "$ref": "#/components/schemas/AnotherClass" }]
+          }
+        },
+        "type": "object",
+        "required": [
+          "url",
+          "user_id",
+          "channel_id",
+          "channel_type",
+          "channel_privacy",
+          "msg_location",
+          "project_id",
+          "message_id"
+        ],
+        "title": "UploadDocumentSchema"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

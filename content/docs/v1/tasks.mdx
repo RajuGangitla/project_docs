@@ -1,0 +1,173 @@
+---
+title: Tasks
+description: Task Management API
+---
+
+# Task Management API
+
+The Task Management API allows users to manage tasks through various actions, including creating, updating, listing, and deleting tasks. These endpoints provide a flexible way to track and manage tasks, assign them to users, set deadlines, and more. This API is essential for teams and individuals looking to efficiently manage their task workflows.
+
+## Key Features:
+
+- **Create Tasks:** Allows users to create new tasks with essential details such as title, description, due date, priority, and assignees.
+- **Update Tasks:** Enables modification of existing task data, including changing titles, updating statuses, and adjusting deadlines.
+- **List Tasks:** Provides paginated access to a list of all tasks or tasks assigned to specific users, with various filters.
+- **Delete Tasks:** Allows users to remove tasks, with options for deleting related data.
+
+You can navigate the different sections to learn more about how each endpoint works.
+
+---
+
+## Create Task
+
+The `Create Task` API allows users to create a new task with essential details. This endpoint supports various optional fields to provide flexibility when adding tasks.
+
+### Endpoint
+
+import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
+import { TypeTable } from "fumadocs-ui/components/type-table";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+```http
+POST /api/task-mgt/task/create
+```
+
+<Accordions>
+  {" "}
+  <Accordion title="Body Parameters">
+    {" "}
+    <TypeTable
+      type={{
+        projectId: {
+          description: "The ID of the project to which the task belongs.",
+          type: "string",
+          optional: true,
+        },
+        description: {
+          description: "A detailed description of the task.",
+          type: "string",
+          optional: true,
+        },
+        tasks: {
+          description: "List of related tasks.",
+          type: "any[]",
+          optional: true,
+        },
+        title: {
+          description: "The title of the task.",
+          type: "string",
+          optional: false,
+        },
+        type: {
+          description: "The type of the task.",
+          type: "string",
+          optional: true,
+        },
+        priority: {
+          description: "The priority level of the task.",
+          type: "string",
+          optional: true,
+        },
+        startTime: {
+          description: "The start time for the task.",
+          type: "string",
+          optional: true,
+        },
+        endTime: {
+          description: "The end time for the task.",
+          type: "string",
+          optional: true,
+        },
+        milestoneId: {
+          description: "The ID of the milestone associated with the task.",
+          type: "string",
+          optional: true,
+        },
+        subTaskStatus: {
+          description: "Status of the subtasks.",
+          type: "subTaskStatus[]",
+          optional: true,
+        },
+        tags: {
+          description: "Tags associated with the task.",
+          type: "string[]",
+          optional: true,
+        },
+        category: {
+          description: "Category of the task.",
+          type: "string",
+          optional: true,
+        },
+        comment: {
+          description: "Additional comments about the task.",
+          type: "string",
+          optional: true,
+        },
+        billStatus: {
+          description: "Billing status of the task.",
+          type: "string",
+          optional: true,
+        },
+        currency: {
+          description: "Currency used for billing the task.",
+          type: "string",
+          optional: true,
+        },
+        customer: {
+          description: "Customer associated with the task.",
+          type: "string",
+          optional: true,
+        },
+        hourlyCost: {
+          description: "Hourly cost for the task.",
+          type: "number",
+          optional: true,
+        },
+        status: {
+          description: "Current status of the task.",
+          type: "string",
+          optional: true,
+        },
+        assignees: {
+          description: "List of users assigned to the task.",
+          type: "string[]",
+          optional: true,
+        },
+      }}
+    />{" "}
+  </Accordion>{" "}
+</Accordions>
+
+<Tabs items={["200 Success", "400 Bad Request", "401 Unauthorized"]}>
+  <Tab value="200 Success">
+    ```json
+    { 
+        "status": 200, 
+        "message": "Task created successfully", 
+        "data": {
+            "id": "task123", 
+            "title": "New Task",
+            "description": "This is a detailed description of the new task.", 
+            "projectId": "project456",
+            "status": "pending"
+        } 
+    }
+    ```
+  </Tab>
+  <Tab value="401 Unauthorized">
+    ```json
+    {
+      "status": 401,
+      "message": "Unauthorized. Please log in."
+    }
+    ```
+  </Tab>
+  <Tab value="400 Bad Request">
+    ```json
+    {
+      "status": 400,
+      "message": "Invalid input data. Please check the provided parameters."
+    }
+    ```
+  </Tab>
+</Tabs>
