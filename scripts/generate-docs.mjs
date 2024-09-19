@@ -1,7 +1,11 @@
+import * as OpenAPI from 'fumadocs-openapi';
 
-import { generateFiles } from 'fumadocs-openapi';
 
-void generateFiles({
+
+void OpenAPI.generateFiles({
     input: ['./apiData.json'],
-    output: './content/docs',
+    output: './content/docs/v1',
+    per: 'operation',
 });
+
+
